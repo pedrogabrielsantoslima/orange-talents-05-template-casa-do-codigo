@@ -1,5 +1,7 @@
 package br.com.zup.pedro.casadocodigo.request;
 
+import br.com.zup.pedro.casadocodigo.model.Autor;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -10,12 +12,12 @@ public class AutorRequest {
     @Max(255)
     private final String nome;
 
-    @NotBlank
+    @NotBlank(message = "O email é obrigatório")
     @Max(255)
     @Email
     private final String email;
 
-    @NotBlank
+    @NotBlank(message = "A descrição é obrigatória")
     @Max(400)
     private final String descricao;
 
@@ -35,5 +37,9 @@ public class AutorRequest {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public Autor converter() {
+        return new Autor(nome, email, descricao);
     }
 }

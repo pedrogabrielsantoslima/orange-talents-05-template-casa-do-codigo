@@ -1,9 +1,8 @@
 package br.com.zup.pedro.casadocodigo.response;
 
-import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.request.AutorRequest;
-
 import java.time.LocalDateTime;
+
 
 public class AutorResponse extends AutorRequest {
 
