@@ -2,6 +2,7 @@ package br.com.zup.pedro.casadocodigo.request;
 
 import br.com.zup.pedro.casadocodigo.model.Autor;
 
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
