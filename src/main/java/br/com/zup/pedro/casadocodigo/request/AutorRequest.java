@@ -1,6 +1,7 @@
 package br.com.zup.pedro.casadocodigo.request;
 
 import br.com.zup.pedro.casadocodigo.model.Autor;
+import br.com.zup.pedro.casadocodigo.validator.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -17,6 +18,7 @@ public class AutorRequest implements Serializable {
 
     @Length(min = 10, max = 255, message = "O email deverá ter entre {min} e {max} caracteres")
     @Email
+    @UniqueValue(fieldName = "email", model = Autor.class)
     private final String email;
 
     @NotBlank(message = "A descrição é obrigatória")

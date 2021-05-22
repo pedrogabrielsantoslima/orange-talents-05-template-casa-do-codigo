@@ -1,13 +1,11 @@
 package br.com.zup.pedro.casadocodigo.controller;
 
-import br.com.zup.pedro.casadocodigo.validator.ProibeEmailAutorDuplicadoValidator;
 import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.repository.AutorRepository;
 import br.com.zup.pedro.casadocodigo.request.AutorRequest;
 import br.com.zup.pedro.casadocodigo.response.AutorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,9 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/autores")
 public class AutorController {
-
-    @Autowired
-    private ProibeEmailAutorDuplicadoValidator proibeEmailAutorDuplicadoValidator;
 
     @Autowired
     private AutorRepository autorRepository;
@@ -40,11 +35,5 @@ public class AutorController {
         return ResponseEntity
                 .created(UriComponentsBuilder.fromPath(String.format("/autores/%s", autor.getId())).build().toUri())
                 .body(AutorResponse.converterDe(autor));
-    }
-
-    //Metodo para verificar Email duplicado
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(proibeEmailAutorDuplicadoValidator);
     }
 }
