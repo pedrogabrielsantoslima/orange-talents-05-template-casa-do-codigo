@@ -1,4 +1,4 @@
-package br.com.zup.pedro.casadocodigo.config;
+package br.com.zup.pedro.casadocodigo.validator;
 
 import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.repository.AutorRepository;
@@ -11,10 +11,10 @@ import org.springframework.validation.Validator;
 import java.util.Optional;
 
 @Component
-public class ProibeEmailDuplicadoValidator implements Validator {
+public class ProibeEmailAutorDuplicadoValidator implements Validator {
 
     @Autowired
-    AutorRepository autorRepository;
+    private AutorRepository autorRepository;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -31,7 +31,7 @@ public class ProibeEmailDuplicadoValidator implements Validator {
 
         Optional<Autor> optionalAutor = autorRepository.findByEmail(autorRequest.getEmail());
         if(optionalAutor.isPresent()){
-            errors.rejectValue("email", null, "Email ja existe");
+            errors.rejectValue("email", "Email ja existe");
         }
     }
 }

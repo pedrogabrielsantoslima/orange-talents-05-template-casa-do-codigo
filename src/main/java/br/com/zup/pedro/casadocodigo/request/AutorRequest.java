@@ -1,25 +1,26 @@
 package br.com.zup.pedro.casadocodigo.request;
 
 import br.com.zup.pedro.casadocodigo.model.Autor;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-public class AutorRequest {
+public class AutorRequest implements Serializable {
+
+    private static final long serialVersionUID = 1159409202298668221L;
 
     @NotBlank(message = "O nome é obrigatório")
-    @Max(255)
+    @Length(min = 3, max = 255, message = "O nome deverá ter entre {min} e {max} caracteres")
     private final String nome;
 
-    @NotBlank(message = "O email é obrigatório")
-    @Max(255)
+    @Length(min = 10, max = 255, message = "O email deverá ter entre {min} e {max} caracteres")
     @Email
     private final String email;
 
     @NotBlank(message = "A descrição é obrigatória")
-    @Max(400)
+    @Length(min = 1, max = 400, message = "A descricao deverá ter entre {min} e {max} caracteres")
     private final String descricao;
 
     public AutorRequest(String nome, String email, String descricao) {
@@ -40,7 +41,7 @@ public class AutorRequest {
         return descricao;
     }
 
-    public Autor converter() {
+    public Autor toModel() {
         return new Autor(nome, email, descricao);
     }
 }

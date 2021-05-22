@@ -1,6 +1,6 @@
 package br.com.zup.pedro.casadocodigo.controller;
 
-import br.com.zup.pedro.casadocodigo.config.ProibeEmailDuplicadoValidator;
+import br.com.zup.pedro.casadocodigo.validator.ProibeEmailAutorDuplicadoValidator;
 import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.repository.AutorRepository;
 import br.com.zup.pedro.casadocodigo.request.AutorRequest;
@@ -11,38 +11,40 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.persistence.PersistenceContexts;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/autor")
+@RequestMapping(value = "/autores")
 public class AutorController {
 
     @Autowired
-    ProibeEmailDuplicadoValidator proibeEmailDuplicadoValidator;
+    private ProibeEmailAutorDuplicadoValidator proibeEmailAutorDuplicadoValidator;
 
     @Autowired
-    AutorRepository autorRepository;
+    private AutorRepository autorRepository;
 
     @GetMapping
-    public List<Autor> listaAutor(){
-       return autorRepository.findAll();
+    public List<AutorResponse> listar(){
+       return autorRepository.findAll()
+               .stream()
+               .map(AutorResponse::converterDe)
+               .collect(Collectors.toList());
     }
 
     @PostMapping
-    public ResponseEntity<AutorResponse> cadastrarAutor(@RequestBody @Valid AutorRequest autorRequest, UriComponentsBuilder uriBuilder){
-        Autor autor = autorRequest.converter();
-        autorRepository.save(autor);
+    public ResponseEntity<AutorResponse> cadastrar(@Valid @RequestBody AutorRequest autorRequest){
+        Autor autor = autorRepository.save(autorRequest.toModel());
 
-        URI uri = uriBuilder.path("/autor/{id}").buildAndExpand(autor.getId()).toUri();
-        return ResponseEntity.created(uri).body(new AutorResponse(autor.getNome(), autor.getEmail(), autor.getDescricao()));
+        return ResponseEntity
+                .created(UriComponentsBuilder.fromPath(String.format("/autores/%s", autor.getId())).build().toUri())
+                .body(AutorResponse.converterDe(autor));
     }
 
+    //Metodo para verificar Email duplicado
     @InitBinder
     public void init(WebDataBinder binder){
-        binder.addValidators(proibeEmailDuplicadoValidator);
-
+        binder.addValidators(proibeEmailAutorDuplicadoValidator);
     }
 }

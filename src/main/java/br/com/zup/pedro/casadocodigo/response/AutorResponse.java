@@ -1,5 +1,6 @@
 package br.com.zup.pedro.casadocodigo.response;
 
+import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.request.AutorRequest;
 import java.time.LocalDateTime;
 
@@ -27,5 +28,14 @@ public class AutorResponse extends AutorRequest {
 
     public void setInstante(LocalDateTime instante) {
         this.instante = instante;
+    }
+
+    public static AutorResponse converterDe(Autor autor) {
+        final AutorResponse autorResponse = new AutorResponse(autor.getNome(), autor.getEmail(), autor.getDescricao());
+
+        autorResponse.id = autor.getId();
+        autorResponse.instante = autor.getInstante();
+
+        return autorResponse;
     }
 }

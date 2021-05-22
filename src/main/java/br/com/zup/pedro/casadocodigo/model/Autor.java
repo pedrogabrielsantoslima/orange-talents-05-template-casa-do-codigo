@@ -12,7 +12,7 @@ public class Autor {
     private Integer id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false, length = 400)
     private String descricao;

@@ -1,8 +1,7 @@
-package br.com.zup.pedro.casadocodigo.config;
+package br.com.zup.pedro.casadocodigo.exceptions;
 
 
 import br.com.zup.pedro.casadocodigo.response.ErroDeValidacaoResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -18,13 +17,15 @@ import java.util.List;
 @RestControllerAdvice
 public class ErroDeValidacaoHandler {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
+
+    public ErroDeValidacaoHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErroDeValidacaoResponse> handle(MethodArgumentNotValidException exception){
-
+    public List<ErroDeValidacaoResponse> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception){
         List<ErroDeValidacaoResponse> erroResponse = new ArrayList<>();
 
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
