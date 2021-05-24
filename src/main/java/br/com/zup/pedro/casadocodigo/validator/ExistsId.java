@@ -8,9 +8,9 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UniqueValueValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueValue {
+public @interface ExistsId {
 
-    String message() default "Registro duplicado com o campo {fieldName} para ${model.getSimpleName()}";
+    String message() default "O campo {fieldName} referente à ${model.getSimpleName()} não existe";
 
     Class<?>[] groups() default {};
 
