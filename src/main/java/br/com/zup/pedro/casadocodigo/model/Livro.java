@@ -17,7 +17,7 @@ public class Livro {
     @Column
     private String sumario;
     @Column(nullable = false)
-    private BigDecimal preco;
+    private BigDecimal preco = new BigDecimal(0.1);
     @Column(nullable = false)
     private Integer paginas;
     @Column(nullable = false, unique = true)

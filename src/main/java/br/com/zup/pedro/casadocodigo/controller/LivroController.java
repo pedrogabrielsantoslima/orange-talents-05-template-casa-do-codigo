@@ -38,7 +38,6 @@ public class LivroController {
     @Transactional
     public ResponseEntity<LivroResponse> cadastrar(@Valid @RequestBody LivroRequest livroRequest){
         Livro livro = livroRepository.save(livroRequest.toModel(manager));
-        manager.persist(livro);
 
         return ResponseEntity
                 .created(UriComponentsBuilder.fromPath(String.format("/livros/%s", livro.getId())).build().toUri())

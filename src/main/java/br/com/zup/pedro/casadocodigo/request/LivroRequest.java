@@ -7,9 +7,11 @@ import br.com.zup.pedro.casadocodigo.validator.ExistsId;
 import br.com.zup.pedro.casadocodigo.validator.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -27,19 +29,20 @@ public class LivroRequest {
     private String resumo;
 
     @NotNull(message = "O preço é obrigatório")
-    @Length(min = 20, message = "O preço deve ser R${min} no minimo")
+    @Min(value = 20, message = "O preço deve ter R${value} no minimo")
     private BigDecimal preco;
 
     @NotNull(message = "Numero de paginas obrigatório")
-    @Length(min = 100, message = "O livro deverá ter {min} paginas no minimo")
+    @Min(value = 100, message = "O livro deverá ter {value} paginas no minimo")
     private Integer paginas;
 
     @NotBlank(message = "ISBN é obrigatório")
     @UniqueValue(fieldName = "isbn", model = Livro.class)
     private String isbn;
 
-    @NotNull(message = "Data é obrigatório")
-    @Future @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    @Future
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataPublicacao;
 
     @NotNull(message = "O Autor é obrigatório")
