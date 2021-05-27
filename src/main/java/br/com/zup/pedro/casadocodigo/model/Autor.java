@@ -32,6 +32,10 @@ public class Autor {
         this.descricao = descricao;
     }
 
+    public Autor(Integer id){
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

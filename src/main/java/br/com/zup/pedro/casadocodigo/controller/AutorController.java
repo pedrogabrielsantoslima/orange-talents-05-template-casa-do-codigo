@@ -4,6 +4,7 @@ import br.com.zup.pedro.casadocodigo.model.Autor;
 import br.com.zup.pedro.casadocodigo.repository.AutorRepository;
 import br.com.zup.pedro.casadocodigo.request.AutorRequest;
 import br.com.zup.pedro.casadocodigo.response.AutorResponse;
+import br.com.zup.pedro.casadocodigo.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,11 @@ public class AutorController {
     private AutorRepository autorRepository;
 
     @GetMapping
-    public List<AutorResponse> listar(){
-       return autorRepository.findAll()
+    public BaseResponse<List<AutorResponse>> listar(){
+       return new BaseResponse<>(autorRepository.findAll()
                .stream()
                .map(AutorResponse::converterDe)
-               .collect(Collectors.toList());
+               .collect(Collectors.toList()));
     }
 
     @PostMapping

@@ -25,6 +25,6 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> 
         Query query = entityManager.createQuery(String.format("SELECT 1 FROM %s WHERE %s = :value", modelClass.getSimpleName(), fieldName));
         query.setParameter("value", value);
 
-        return query.getResultList().contains(value);
+        return !query.getResultList().isEmpty();
     }
 }

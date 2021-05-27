@@ -3,6 +3,7 @@ package br.com.zup.pedro.casadocodigo.controller;
 import br.com.zup.pedro.casadocodigo.model.Categoria;
 import br.com.zup.pedro.casadocodigo.repository.CategoriaRepository;
 import br.com.zup.pedro.casadocodigo.request.CategoriaRequest;
+import br.com.zup.pedro.casadocodigo.response.BaseResponse;
 import br.com.zup.pedro.casadocodigo.response.CategoriaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,11 @@ public class CategoriaController {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public List<CategoriaResponse> listar(){
-        return categoriaRepository.findAll()
+    public BaseResponse<List<CategoriaResponse>> listar(){
+        return new BaseResponse<>(categoriaRepository.findAll()
                 .stream()
                 .map(CategoriaResponse::converterDe)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @PostMapping

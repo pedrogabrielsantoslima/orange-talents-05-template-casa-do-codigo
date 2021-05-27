@@ -98,10 +98,10 @@ public class LivroRequest {
         return idCategoria;
     }
 
-    public Livro toModel(EntityManager manager) {
+    public Livro toModel() {
 
-        Autor autor = manager.find(Autor.class, idAutor);
-        Categoria categoria = manager.find(Categoria.class, idCategoria);
+        Autor autor = new Autor(idAutor);
+        Categoria categoria = new Categoria(idCategoria);
 
         return new Livro(titulo, resumo, preco, paginas, isbn, dataPublicacao, autor, categoria);
     }

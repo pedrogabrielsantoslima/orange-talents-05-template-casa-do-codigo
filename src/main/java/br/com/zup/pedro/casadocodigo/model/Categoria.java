@@ -15,6 +15,10 @@ public class Categoria {
     @Deprecated
     public Categoria(){}
 
+    public Categoria(Integer id){
+        this.id = id;
+    }
+
     public Categoria(String nome){
         this.nome = nome;
     }
