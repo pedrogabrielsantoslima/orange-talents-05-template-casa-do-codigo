@@ -2,7 +2,6 @@ package br.com.zup.pedro.casadocodigo.response;
 
 import br.com.zup.pedro.casadocodigo.model.Livro;
 import br.com.zup.pedro.casadocodigo.request.LivroRequest;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

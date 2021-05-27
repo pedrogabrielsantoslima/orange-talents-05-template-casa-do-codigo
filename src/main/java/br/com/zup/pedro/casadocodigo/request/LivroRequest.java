@@ -99,7 +99,6 @@ public class LivroRequest {
     }
 
     public Livro toModel() {
-
         Autor autor = new Autor(idAutor);
         Categoria categoria = new Categoria(idCategoria);
 

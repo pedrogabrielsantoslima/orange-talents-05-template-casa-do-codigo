@@ -3,7 +3,6 @@ package br.com.zup.pedro.casadocodigo.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Entity
 public class Livro {
