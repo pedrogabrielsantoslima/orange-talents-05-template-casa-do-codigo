@@ -16,6 +16,10 @@ public class Estados {
     @Deprecated
     public Estados(){}
 
+    public Estados(Integer id){
+        this.id = id;
+    }
+
     public Estados(String nome, Pais pais){
 
         this.nome = nome;
